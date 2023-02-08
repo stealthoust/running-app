@@ -1,22 +1,22 @@
+<div class="main-content">
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="trainingsList">
-
+  <table mat-table [dataSource]="trainingsList" >
 
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
     <ng-container matColumnDef="dateCreated">
       <th mat-header-cell *matHeaderCellDef> Date of run </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateCreated}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.dateCreated | date}} </td>
     </ng-container>
     <ng-container matColumnDef="lastUpdated">
       <th mat-header-cell *matHeaderCellDef> Date of last update </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastUpdated}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.lastUpdated |date}} </td>
     </ng-container>
     <ng-container matColumnDef="runTime">
       <th mat-header-cell *matHeaderCellDef> Run duration </th>
-      <td mat-cell *matCellDef="let element"> {{element.runTime}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
     </ng-container>
     <ng-container matColumnDef="kilometers">
       <th mat-header-cell *matHeaderCellDef> Kilometers </th>
@@ -30,10 +30,17 @@
       <th mat-header-cell *matHeaderCellDef> Calories burned </th>
       <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
     </ng-container>
-<!--    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>-->
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button="primary" aria-label="Delete training">
+        <mat-icon>delete</mat-icon>
+      </button>
+        <button mat-icon-button="primary" aria-label="Delete training">
+          <mat-icon>person</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -44,9 +51,10 @@
                  (page)="OnPageChange($event)"
                  [length]="totalElements"
                  [pageSize]="pageSize"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 [pageSizeOptions]="[10, 20, 30]"
                  aria-label="Select page"
                  [showFirstLastButtons]=true>
 
   </mat-paginator>
+</div>
 </div>

@@ -23,17 +23,17 @@ export class TrainingService {
 
   }
 
-  calculateAvgSpeed(time: string, distance: number) {
-    // Konwersja stringa na milisekundy
+  calculateAvgSpeed(time: string, distance: number) :number{
+
     let timeInMs = this.convertTimeToMs(time);
 
-    // Obliczanie średniej prędkości (v = d / t)
-    let avgSpeed = distance / (timeInMs / 1000 / 60 / 60);
+    let avgSpeed =  distance / (timeInMs / 1000 / 60 / 60);
 
-    return avgSpeed;
+    return parseFloat(avgSpeed.toFixed(2));
   }
 
   convertTimeToMs(time: string) {
+
     let timeArr = time.split(":");
     let hours = parseInt(timeArr[0]) * 60 * 60 * 1000;
     let minutes = parseInt(timeArr[1]) * 60 * 1000;

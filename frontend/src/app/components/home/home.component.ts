@@ -12,7 +12,7 @@ import {MatTableDataSource} from "@angular/material/table";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  displayedColumns: string[] = ['id', 'dateCreated', 'lastUpdated', 'runTime', 'kilometers','avgSpeed','calories'];
+  displayedColumns: string[] = [ 'id','dateCreated', 'lastUpdated', 'runTime', 'kilometers','avgSpeed','calories','actions'];
   trainingsList:Training[] = [];
   t=new MatTableDataSource<Training>(this.trainingsList);
   pageNumber:number = 1;
@@ -23,26 +23,21 @@ export class HomeComponent {
 
   ngOnInit(): void {
 this.getTrainings();
-    console.log("here2");
-
   }
-ngAfterViewInit(): void {
-  console.log("here");
-  this.calculateAvgSpeed(this.trainingsList);
-}
+
   getTrainings(){
     this.trainingService.getTrainingsPaginated(this.pageNumber-1,this.pageSize).subscribe(
       data=>{
         this.trainingsList = data;
-        console.log(data);
+        this.calculateAvgSpeed(this.trainingsList);
       }
     )
   }
 
 calculateAvgSpeed(trainings: Training[]) {
     trainings.forEach((training:Training)=> {
-      let s=training.time?.split(':');
-      console.log(s);
+      training.avgSpeed = this.trainingService.calculateAvgSpeed(training.time!, training.kilometers!) ;
+
 
     });
 }

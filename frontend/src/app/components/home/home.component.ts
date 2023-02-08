@@ -14,7 +14,6 @@ import {MatTableDataSource} from "@angular/material/table";
 export class HomeComponent {
   displayedColumns: string[] = [ 'id','dateCreated', 'lastUpdated', 'runTime', 'kilometers','avgSpeed','calories','actions'];
   trainingsList:Training[] = [];
-  t=new MatTableDataSource<Training>(this.trainingsList);
   pageNumber:number = 1;
   pageSize:number = 10;
   totalElements:number = 0;
@@ -27,10 +26,7 @@ this.getTrainings();
 
   getTrainings(){
     this.trainingService.getTrainingsPaginated(this.pageNumber-1,this.pageSize).subscribe(
-      data=>{
-        this.trainingsList = data;
-        this.calculateAvgSpeed(this.trainingsList);
-      }
+this.getNestedData()
     )
   }
 
@@ -46,5 +42,14 @@ calculateAvgSpeed(trainings: Training[]) {
     this.totalElements=e.length;
     this.pageNumber=e.pageIndex+1;
     this.getTrainings();
+  }
+
+  getNestedData(){
+    return(data:any)=>{
+      this.trainingsList = data._embedded.trainings;
+      this.pageNumber = data.page.number + 1;
+      this.pageSize = data.page.size;
+      this.totalElements = data.page.totalElements;
+    }
   }
 }

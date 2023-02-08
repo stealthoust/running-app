@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.sql.Time;
@@ -26,7 +25,7 @@ public class Training {
     private double kilometers;
 
     @Column(name = "time")
-    private Time runTime;
+    private Time time;
 
     @Column(name = "calories")
     private int calories;
@@ -36,11 +35,11 @@ public class Training {
 
     @Column(name = "date_created")
     @CreationTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date dateCreated;
 
     @Column(name = "last_updated")
     @UpdateTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date lastUpdated;
 }

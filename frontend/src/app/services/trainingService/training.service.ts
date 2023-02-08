@@ -17,9 +17,8 @@ export class TrainingService {
       map(response => response._embedded.trainings));
   }
 
-  getTrainingsPaginated(page: number, size: number): Observable<Training[]> {
-    return this.httpClient.get<getTrainingsResponse>(`${this.baseUrl}?page=${page}&size=${size}`).pipe(
-      map(response => response._embedded.trainings));
+  getTrainingsPaginated(page: number, size: number): Observable<getTrainingsResponse> {
+    return this.httpClient.get<getTrainingsResponse>(`${this.baseUrl}?page=${page}&size=${size}`);
 
   }
 
@@ -46,5 +45,11 @@ export class TrainingService {
 interface getTrainingsResponse {
   _embedded:{
     trainings:Training[];
+  },
+  page:{
+    size:number,
+    totalElements:number,
+    totalPages:number,
+    number:number
   }
 }

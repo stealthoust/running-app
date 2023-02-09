@@ -4,7 +4,7 @@
     <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-field">
         <mat-label>Date of run</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" >
+        <input matInput [matDatepicker]="picker" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -16,7 +16,7 @@
       </div>
       <mat-form-field class="form-field">
         <mat-label>Kilometers</mat-label>
-        <input matInput type="number" step="0.01" min="0" formControlName="kilometers">
+        <input matInput (change)="calculateCalories()" type="number" step="0.01" min="0" formControlName="kilometers">
 
       </mat-form-field>
       <div *ngIf="kilometers?.invalid && (kilometers?.dirty || kilometers?.touched)" class="alert alert-danger">
@@ -31,12 +31,12 @@
         <div class="calories-input">
           <mat-form-field class="form-field ">
             <mat-label>Calories burned</mat-label>
-            <input matInput type="number" min="0"  formControlName="calories">
+            <input matInput type="number" min="0" formControlName="calories">
           </mat-form-field>
         </div>
         <div class="form-field calories-checkbox">
-          <mat-checkbox  title="Count calories automatically" id="caloriesCheckbox"
-                        formControlName="calculateCalories"></mat-checkbox>
+          <mat-checkbox (change)="checkboxChangeState()" title="Count calories automatically"
+                        id="caloriesCheckbox"></mat-checkbox>
         </div>
       </div>
       <div *ngIf="calories?.invalid && (calories?.dirty || calories?.touched)" class="alert alert-danger">
@@ -51,7 +51,7 @@
         <div class="run-duration_slider">
           <div class="hours_content">
             <label>Hours</label>
-            <mat-slider  min="0" max="40" step="1">
+            <mat-slider min="0" max="40" step="1">
               <input #hours formControlName="hours" (valueChange)="setHours(hours.value)" matSliderThumb>
             </mat-slider>
           </div>
@@ -64,11 +64,11 @@
           <div class="seconds_content">
             <label>Seconds</label>
             <mat-slider min="0" max="59" step="1">
-              <input #seconds formControlName="seconds"  (valueChange)="setSeconds(seconds.value)" matSliderThumb>
+              <input #seconds formControlName="seconds" (valueChange)="setSeconds(seconds.value)" matSliderThumb>
             </mat-slider>
           </div>
         </div>
-        <div class="total_time"  *ngIf=" !durationValid?.errors?.['durationTooShort']">
+        <div class="total_time" *ngIf=" !durationValid?.errors?.['durationTooShort']">
           {{time}}
         </div>
         <div class="error-message" *ngIf=" durationValid?.errors?.['durationTooShort']">
@@ -78,8 +78,11 @@
       </div>
       <mat-form-field class="form-field" appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea matInput></textarea>
+        <textarea formControlName="description" matInput></textarea>
       </mat-form-field>
+      <div *ngIf="description?.errors?.['maxlength']">
+        Length of description should be less than 255 characters
+      </div>
       <button id="form-button" mat-flat-button color="primary">Add training</button>
 
     </form>

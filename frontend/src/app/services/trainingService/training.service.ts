@@ -25,7 +25,7 @@ export class TrainingService {
   deleteTraining(id: number) {
     return this.httpClient.delete(`${this.baseUrl}/${id}`,{observe:"response"});
   }
-addTraining(training: Training) :Observable<any>{
+addTraining(training: Training) {
     return this.httpClient.post<Training>(this.baseUrl, training);
 
 }

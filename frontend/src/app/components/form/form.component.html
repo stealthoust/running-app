@@ -1,24 +1,37 @@
 <div class="form-content">
   <div class="container">
     <h1 class="form-title">Add new run</h1>
-    <form [formGroup]="trainingForm">
+    <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-field">
-        <input matInput [matDatepicker]="picker" placeholder="Date of run" formControlName="date">
+        <mat-label>Date of run</mat-label>
+        <input matInput [matDatepicker]="picker"  formControlName="date" >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="alert alert-danger">
+        <div *ngIf="date?.errors?.['required']">
+          Date is required
+        </div>
 
+      </div>
       <mat-form-field class="form-field">
-        <input matInput type="text" placeholder="Run duration" formControlName="time">
-      </mat-form-field>
+        <mat-label>Kilometers</mat-label>
+        <input matInput type="number" step="0.01" min="0" formControlName="kilometers">
 
-      <mat-form-field class="form-field">
-        <input matInput type="number" placeholder="Kilometers" formControlName="kilometers">
       </mat-form-field>
+      <div *ngIf="kilometers?.invalid && (kilometers?.dirty || kilometers?.touched)" class="alert alert-danger">
+        <div *ngIf="kilometers?.errors?.['required']">
+          Run length is required
+        </div>
+        <div *ngIf="kilometers?.errors?.['min'] || kilometers?.errors?.['max']">
+          Please type a valid run length (0.01-200)
+        </div>
+      </div>
       <div class="caloriesContent">
         <div class="calories-input">
           <mat-form-field class="form-field ">
-            <input matInput type="number" placeholder="Calories burned" formControlName="calories">
+            <mat-label>Calories burned</mat-label>
+            <input matInput type="number" min="0"  formControlName="calories">
           </mat-form-field>
         </div>
         <div class="form-field calories-checkbox">
@@ -26,29 +39,37 @@
                         formControlName="calculateCalories"></mat-checkbox>
         </div>
       </div>
+      <div *ngIf="calories?.invalid && (calories?.dirty || calories?.touched)" class="alert alert-danger">
+        <div *ngIf="calories?.errors?.['required']">
+          Calories are required
+        </div>
+        <div *ngIf="calories?.errors?.['min'] || calories?.errors?.['max']">
+          Please type a valid calories (1-15 600)
+        </div>
+      </div>
       <div class="run-duration_content">
         <div class="run-duration_slider">
           <div class="hours_content">
             <label>Hours</label>
             <mat-slider  min="0" max="40" step="1">
-              <input #hours (valueChange)="setHours(hours.value)" matSliderThumb>
+              <input #hours formControlName="hours" (valueChange)="setHours(hours.value)" matSliderThumb>
             </mat-slider>
           </div>
           <div class="minutes_content">
             <label>Minutes</label>
             <mat-slider min="0" max="59" step="1">
-              <input #minutes (valueChange)="setMinutes(minutes.value)" matSliderThumb>
+              <input #minutes formControlName="minutes" (valueChange)="setMinutes(minutes.value)" matSliderThumb>
             </mat-slider>
           </div>
           <div class="seconds_content">
             <label>Seconds</label>
             <mat-slider min="0" max="59" step="1">
-              <input #seconds matSliderThumb (valueChange)="setSeconds(seconds.value)">
+              <input #seconds formControlName="seconds"  (valueChange)="setSeconds(seconds.value)" matSliderThumb>
             </mat-slider>
           </div>
         </div>
         <div>
-          <label class="total_time">{{hoursValue}}:{{minutesValue}}:{{secondsValue}}</label>
+          <label  class="total_time">{{hoursValue}}:{{minutesValue}}:{{secondsValue}}</label>
         </div>
 
       </div>

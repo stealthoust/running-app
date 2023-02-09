@@ -4,7 +4,7 @@
     <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-field">
         <mat-label>Date of run</mat-label>
-        <input matInput [matDatepicker]="picker"  formControlName="date" >
+        <input matInput [matDatepicker]="picker" formControlName="date" >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -35,7 +35,7 @@
           </mat-form-field>
         </div>
         <div class="form-field calories-checkbox">
-          <mat-checkbox title="Count calories automatically" id="caloriesCheckbox"
+          <mat-checkbox  title="Count calories automatically" id="caloriesCheckbox"
                         formControlName="calculateCalories"></mat-checkbox>
         </div>
       </div>
@@ -68,8 +68,11 @@
             </mat-slider>
           </div>
         </div>
-        <div>
-          <label  class="total_time">{{hoursValue}}:{{minutesValue}}:{{secondsValue}}</label>
+        <div class="total_time"  *ngIf=" !durationValid?.errors?.['durationTooShort']">
+          {{time}}
+        </div>
+        <div class="error-message" *ngIf=" durationValid?.errors?.['durationTooShort']">
+          Bieg powinien trwać co najmniej 1 minutę.
         </div>
 
       </div>

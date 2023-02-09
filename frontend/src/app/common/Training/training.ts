@@ -7,8 +7,8 @@ export class Training {
     public avgSpeed?:number,
     public calories?:number,
     public description?:string,
-    public dateCreated?:Date,
-    public lastUpdated?:Date,
+    public dateCreated?:string,
+    public lastUpdated?:string,
 
     ){}
 }

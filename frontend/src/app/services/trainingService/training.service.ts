@@ -25,7 +25,10 @@ export class TrainingService {
   deleteTraining(id: number) {
     return this.httpClient.delete(`${this.baseUrl}/${id}`,{observe:"response"});
   }
+addTraining(training: Training) :Observable<any>{
+    return this.httpClient.post<Training>(this.baseUrl, training);
 
+}
   calculateAvgSpeed(time: string, distance: number): number {
 
     let timeInMs = this.convertTimeToMs(time);

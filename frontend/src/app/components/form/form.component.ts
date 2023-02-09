@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {HomeComponent} from "../home/home.component";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -9,13 +9,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit {
 
   trainingForm!: FormGroup;
-hours:string= "00";
-minutes :number= 0;
-seconds= "00";
-  constructor(private formBuilder: FormBuilder) { }
+  hoursValue: string = '00';
+  minutesValue: string = '00';
+  secondsValue: string = '00';
+
+  constructor(private formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.trainingForm = this.formBuilder.group({
@@ -23,12 +25,38 @@ seconds= "00";
       time: ['', Validators.required],
       kilometers: ['', Validators.required],
       calculateCalories: [true],
-      calories: ['']
+      calories: [''],
+
     });
   }
+
   submitForm() {
     console.log(this.trainingForm.value);
   }
 
+  display(value: any) {
+    console.log(value);
+  }
 
+  setHours(number: any) {
+    if (number.length == 1) this.hoursValue = "0" + number;
+    else this.hoursValue = number;
+
+  }
+
+  setMinutes(number: any) {
+    if (number.length == 1) this.minutesValue = "0" + number;
+    else this.minutesValue = number;
+
+  }
+
+  setSeconds(number: any) {
+    if (number.length == 1) this.secondsValue = "0" + number;
+    else this.secondsValue = number;
+
+  }
+
+  onInputChange(value: any) {
+    console.log(value);
+  }
 }

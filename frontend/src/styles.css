@@ -1,4 +1,7 @@
-
+mat-toolbar a{
+  text-decoration: none;
+  color: white;
+}
 .main-content {
   min-height: 300px;
   max-height: 750px;
@@ -23,6 +26,9 @@ app-form {
 }
 
 .container {
+  min-width: 450px;
+  max-height: 800px;
+  overflow: auto;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -78,21 +84,13 @@ app-form {
   flex-direction: row;
   padding: 2%;
 }
-.hours_content {
+.hours_content, .minutes_content, .seconds_content {
   display: flex;
   flex-direction: column;
   margin-right: 20px;
 }
 
-.minutes_content {
-  display: flex;
-  flex-direction: column;
-}
 
-.seconds_content {
-  display: flex;
-  flex-direction: column;
-}
 .total_time{
   font-weight: bold;
   font-size: 20px;

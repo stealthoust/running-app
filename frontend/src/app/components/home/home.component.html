@@ -33,12 +33,13 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button="primary" aria-label="Delete training">
+        <button  mat-icon-button="primary" aria-label="Delete training">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button="primary" (click)="deleteTraining(element.id)" aria-label="Delete training">
         <mat-icon>delete</mat-icon>
       </button>
-        <button mat-icon-button="primary" aria-label="Delete training">
-          <mat-icon>person</mat-icon>
-        </button>
+
       </td>
     </ng-container>
 

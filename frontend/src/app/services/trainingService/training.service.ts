@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Training} from "../../common/Training/training";
 import {map, Observable} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,19 @@ export class TrainingService {
       map(response => response._embedded.trainings));
   }
 
-  getTrainingsPaginated(page: number, size: number): Observable<getTrainingsResponse> {
+  getTrainingsPaginated(page: number, size: number) {
     return this.httpClient.get<getTrainingsResponse>(`${this.baseUrl}?page=${page}&size=${size}`);
-
   }
 
-  calculateAvgSpeed(time: string, distance: number) :number{
+  deleteTraining(id: number) {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`,{observe:"response"});
+  }
+
+  calculateAvgSpeed(time: string, distance: number): number {
 
     let timeInMs = this.convertTimeToMs(time);
 
-    let avgSpeed =  distance / (timeInMs / 1000 / 60 / 60);
+    let avgSpeed = distance / (timeInMs / 60 / 60);
 
     return parseFloat(avgSpeed.toFixed(2));
   }
@@ -34,22 +38,22 @@ export class TrainingService {
   convertTimeToMs(time: string) {
 
     let timeArr = time.split(":");
-    let hours = parseInt(timeArr[0]) * 60 * 60 * 1000;
-    let minutes = parseInt(timeArr[1]) * 60 * 1000;
-    let seconds = parseInt(timeArr[2]) * 1000;
+    let hours = parseInt(timeArr[0]) * 60 * 60;
+    let minutes = parseInt(timeArr[1]) * 60;
+    let seconds = parseInt(timeArr[2]);
 
     return hours + minutes + seconds;
   }
 }
 
 interface getTrainingsResponse {
-  _embedded:{
-    trainings:Training[];
+  _embedded: {
+    trainings: Training[];
   },
-  page:{
-    size:number,
-    totalElements:number,
-    totalPages:number,
-    number:number
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }

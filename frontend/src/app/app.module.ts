@@ -12,6 +12,9 @@ import {MatTableModule} from "@angular/material/table";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {ToastrModule} from "ngx-toastr";
+
+
 
 const routes:Routes = [
   {path: '', component: HomeComponent},
@@ -32,11 +35,16 @@ const routes:Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatPaginatorModule,
     MatTableModule,
-    MatToolbarModule,
+    MatPaginatorModule,
     MatIconModule,
-    MatButtonModule
+    MatToolbarModule,
+    MatButtonModule,
+    ToastrModule.forRoot({
+      positionClass: "toast-bottom-right",
+      timeOut: 1500
+    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

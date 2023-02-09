@@ -1,1 +1,58 @@
-<p>form works!</p>
+<div class="form-content">
+<div class="container">
+  <h1 class="form-title">Add new run</h1>
+  <form [formGroup]="trainingForm">
+    <mat-form-field class="form-field">
+      <input matInput [matDatepicker]="picker" placeholder="Date of run" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput type="text" placeholder="Run duration" formControlName="time">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput type="number" placeholder="Kilometers" formControlName="kilometers">
+    </mat-form-field>
+<div class="caloriesContent">
+  <div class="calories-input">
+    <mat-form-field class="form-field ">
+      <input matInput type="number" placeholder="Calories burned" formControlName="calories">
+    </mat-form-field>
+  </div>
+    <div class="form-field calories-checkbox">
+      <mat-checkbox title="Count calories automatically" id="caloriesCheckbox"  formControlName="calculateCalories"></mat-checkbox>
+    </div>
+</div>
+    <div class="run-duration_content">
+      <div class="run-duration_slider">
+      <div class="hours_content">
+        <label>Hours</label>
+        <mat-slider min="0" max="40" step="1"  discrete  >
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+      <div class="minutes_content">
+        <label>Minutes</label>
+        <mat-slider min="0" max="59" step="1"  discrete >
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+      <div class="seconds_content">
+        <label>Seconds</label>
+        <mat-slider min="0" max="59" step="1"  discrete >
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+      </div>
+      <div>
+        <label class="total_time">00:00:00</label>
+      </div>
+
+    </div>
+    <button id="form-button" mat-flat-button color="primary">Add training</button>
+
+  </form>
+</div>
+</div>

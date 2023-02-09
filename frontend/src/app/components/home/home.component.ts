@@ -5,6 +5,7 @@ import {PageEvent} from "@angular/material/paginator";
 import {ToastrService} from "ngx-toastr";
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,7 +18,9 @@ export class HomeComponent {
   pageSize: number = 10;
   totalElements: number = 0;
 
-  constructor(private trainingService: TrainingService,private toast:ToastrService){
+  name:string = "name";
+  animal:string = "animal";
+  constructor(private trainingService: TrainingService, private toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -56,15 +59,16 @@ export class HomeComponent {
   }
 
   deleteTraining(id: number) {
-this.trainingService.deleteTraining(id).subscribe(
-  (res)=>{
+    this.trainingService.deleteTraining(id).subscribe(
+      (res) => {
 
-    if(res.status===204) this.toast.success("Training deleted successfully");
-    this.getTrainings();
-  },
-  (error)=>{
-    this.toast.error("Error deleting training");
+        if (res.status === 204) this.toast.success("Training deleted successfully");
+        this.getTrainings();
+      },
+      (error) => {
+        this.toast.error("Error deleting training");
+      }
+    );
   }
-);
-  }
+
 }

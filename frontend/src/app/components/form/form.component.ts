@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {TrainingService} from "../../services/trainingService/training.service";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -17,16 +17,27 @@ import {Router} from "@angular/router";
 })
 export class FormComponent implements OnInit {
 
+  training: Training = new Training()
   trainingForm!: FormGroup;
   hoursValue: string = '00';
   minutesValue: string = '00';
   secondsValue: string = '00';
   checkboxState: boolean = false;
+  isAddMode: boolean = true;
+  id: string = '';
 
-  constructor(private formBuilder: FormBuilder, private trainingService: TrainingService, private toast: ToastrService, private datePipe: DatePipe, private router: Router) {
+  constructor(private formBuilder: FormBuilder,
+              private trainingService: TrainingService,
+              private toast: ToastrService,
+              private datePipe: DatePipe,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+
+    this.id = this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
 
     this.trainingForm = this.formBuilder.group({
       date: new FormControl(new Date(), [Validators.required]),
@@ -37,15 +48,32 @@ export class FormComponent implements OnInit {
       seconds: new FormControl('0', [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)]),
     });
+    if (!this.isAddMode) {
+this.trainingService.getById(this.id).subscribe(data=>{
+  this.training=data;
+const time= this.training.time?.split(':');
+  this.trainingForm.setValue({
+    date: new Date(Date.parse(this.training.dateCreated!)) ,
+    kilometers: this.training.kilometers,
+    calories: this.training.calories,
+    hours: time![0],
+    minutes: time![1],
+    seconds: time![2],
+    description: this.training.description,
+  });
+})
 
+
+
+    }
   }
 
-  isTotalDurationShort(){
+  isTotalDurationShort() {
 
 
-      let totalDuration = parseInt(this.hoursValue) * 3600 + parseInt(this.minutesValue) * 60 + parseInt(this.secondsValue);
+    let totalDuration = parseInt(this.hoursValue) * 3600 + parseInt(this.minutesValue) * 60 + parseInt(this.secondsValue);
 
-      return totalDuration < 60;
+    return totalDuration < 60;
 
 
   }
@@ -139,7 +167,7 @@ export class FormComponent implements OnInit {
       this.trainingForm.markAllAsTouched();
       return;
     }
-    if(this.isTotalDurationShort()){
+    if (this.isTotalDurationShort()) {
       this.toast.error("Total duration of run must be at least 1 minute");
       return;
     }

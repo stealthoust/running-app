@@ -27,6 +27,7 @@ import {DatePipe} from "@angular/common";
 const routes:Routes = [
   {path: '', component: HomeComponent},
   {path: 'form', component: FormComponent},
+  {path: 'form/:id', component: FormComponent},
 
   {path: '',redirectTo: '',pathMatch:'full'},
   {path: '**',redirectTo: '', pathMatch: 'full'}

@@ -22,13 +22,19 @@ export class TrainingService {
     return this.httpClient.get<getTrainingsResponse>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
-  deleteTraining(id: number) {
-    return this.httpClient.delete(`${this.baseUrl}/${id}`,{observe:"response"});
+  getById(id:string)
+  {
+    return this.httpClient.get(`${this.baseUrl}/${id}`);
   }
-addTraining(training: Training) {
+  deleteTraining(id: number) {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`, {observe: "response"});
+  }
+
+  addTraining(training: Training) {
     return this.httpClient.post<Training>(this.baseUrl, training);
 
-}
+  }
+
   calculateAvgSpeed(time: string, distance: number): number {
 
     let timeInMs = this.convertTimeToMs(time);

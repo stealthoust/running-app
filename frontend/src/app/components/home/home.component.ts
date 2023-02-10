@@ -50,7 +50,9 @@ export class HomeComponent {
     this.pageNumber = e.pageIndex + 1;
     this.getTrainings();
   }
-
+display(desc:string){
+  this.toast.success("Clicked "+desc);
+}
   getNestedData(data: any) {
     this.trainingsList = data._embedded.trainings;
     this.pageNumber = data.page.number + 1;

@@ -49,8 +49,8 @@ export class FormComponent implements OnInit {
       description: new FormControl('', [Validators.maxLength(255)]),
     });
     if (!this.isAddMode) {
-this.trainingService.getById(this.id).subscribe(data=>{
-  this.training=data;
+this.trainingService.getById(this.id).subscribe((res)=>{
+  this.training=res;
 const time= this.training.time?.split(':');
   this.trainingForm.setValue({
     date: new Date(Date.parse(this.training.dateCreated!)) ,
@@ -61,6 +61,13 @@ const time= this.training.time?.split(':');
     seconds: time![2],
     description: this.training.description,
   });
+  this.hoursValue=time![0];
+  this.minutesValue=time![1];
+  this.secondsValue=time![2];
+
+},(error)=>{
+  this.toast.error("Id not found. you will be taken to the creation panel");
+  this.router.navigateByUrl('/form');
 })
 
 
@@ -123,7 +130,9 @@ const time= this.training.time?.split(':');
   get seconds() {
     return this.trainingForm.get('seconds');
   }
+set time(value:string){
 
+}
   get time(): string {
     return `${this.hoursValue}:${this.minutesValue}:${this.secondsValue}`;
   }

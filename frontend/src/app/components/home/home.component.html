@@ -38,7 +38,7 @@
         <button mat-icon-button="primary" (click)="display(element.description)"  aria-label="Update training">
           <mat-icon>info</mat-icon>
         </button>
-        <button mat-icon-button="primary" routerLink="/form/{{element.id}}" [queryParams]="{element}" aria-label="Update training">
+        <button mat-icon-button="primary" routerLink="/form/{{element.id}}" aria-label="Update training">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button="primary" (click)="deleteTraining(element.id)" aria-label="Delete training">

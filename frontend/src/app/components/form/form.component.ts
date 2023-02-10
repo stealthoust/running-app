@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {HomeComponent} from "../home/home.component";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Training} from "../../common/Training/training";
 import {Observable} from "rxjs";
 import {TrainingService} from "../../services/trainingService/training.service";
@@ -36,15 +36,18 @@ export class FormComponent implements OnInit {
       minutes: new FormControl('0', [Validators.required]),
       seconds: new FormControl('0', [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)]),
-
     });
+
   }
 
-  durationValidator() {
+  isTotalDurationShort(){
 
-    let totalDuration = this.trainingForm.get('hours')?.value * 3600 + this.trainingForm.get('minutes')?.value * 60 + this.trainingForm.get('seconds')?.value;
 
-    return totalDuration < 60 ? {'durationTooShort': true} : null;
+      let totalDuration = parseInt(this.hoursValue) * 3600 + parseInt(this.minutesValue) * 60 + parseInt(this.secondsValue);
+
+      return totalDuration < 60;
+
+
   }
 
   checkboxChangeState() {
@@ -101,8 +104,8 @@ export class FormComponent implements OnInit {
     return this.trainingForm.get('description');
   }
 
-  get durationValid() {
-    return this.trainingForm.get('durationValid');
+  get duration() {
+    return this.trainingForm.get('duration');
   }
 
   display(value: any) {
@@ -134,6 +137,10 @@ export class FormComponent implements OnInit {
   onSubmit() {
     if (this.trainingForm.invalid) {
       this.trainingForm.markAllAsTouched();
+      return;
+    }
+    if(this.isTotalDurationShort()){
+      this.toast.error("Total duration of run must be at least 1 minute");
       return;
     }
     let training = new Training();

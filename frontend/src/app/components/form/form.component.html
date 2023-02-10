@@ -68,11 +68,8 @@
             </mat-slider>
           </div>
         </div>
-        <div class="total_time" *ngIf=" !durationValid?.errors?.['durationTooShort']">
+        <div class="total_time">
           {{time}}
-        </div>
-        <div class="error-message" *ngIf=" durationValid?.errors?.['durationTooShort']">
-          Bieg powinien trwać co najmniej 1 minutę.
         </div>
 
       </div>

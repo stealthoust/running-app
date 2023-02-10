@@ -35,8 +35,14 @@
           </mat-form-field>
         </div>
         <div class="form-field calories-checkbox">
-          <mat-checkbox (change)="checkboxChangeState()" title="Count calories automatically"
-                        id="caloriesCheckbox"></mat-checkbox>
+
+          <mat-slide-toggle
+            class="calories-checkbox"
+            (change)="checkboxChangeState()"
+            [checked]="false"
+            >
+            Auto
+          </mat-slide-toggle>
         </div>
       </div>
       <div *ngIf="calories?.invalid && (calories?.dirty || calories?.touched)" class="alert alert-danger">
@@ -48,6 +54,7 @@
         </div>
       </div>
       <div class="run-duration_content">
+        <h2>Run duration</h2>
         <div class="run-duration_slider">
           <div class="hours_content">
             <label>Hours</label>
@@ -73,7 +80,7 @@
         </div>
 
       </div>
-      <mat-form-field class="form-field" appearance="fill">
+      <mat-form-field class="form-field description_form" appearance="fill">
         <mat-label>Description</mat-label>
         <textarea formControlName="description" matInput></textarea>
       </mat-form-field>
@@ -81,8 +88,6 @@
         Length of description should be less than 255 characters
       </div>
       <button id="form-button" mat-flat-button color="primary" >{{isAddMode? 'Add training':'Update training'}}</button>
-     <!-- <button class="form-button" mat-flat-button color="primary" *ngIf="isAddMode">Add training</button>-->
-
 
     </form>
   </div>

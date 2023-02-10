@@ -1,7 +1,8 @@
-mat-toolbar a{
+mat-toolbar a {
   text-decoration: none;
   color: white;
 }
+
 .main-content {
   min-height: 300px;
   max-height: 750px;
@@ -19,9 +20,11 @@ app-home {
 .form-content {
   display: flex;
   justify-content: center;
+
 }
 
 .container {
+  background-color: #737079;
   min-width: 450px;
   max-height: 800px;
   overflow: auto;
@@ -52,18 +55,34 @@ app-home {
   width: 90%;
 }
 
-.calories-checkbox {
-  width: 20%;
+#mat-mdc-slide-toggle-label {
+  color: black;
 }
 
-#caloriesCheckbox {
+mat-slide-toggle {
+
+}
+
+.calories-checkbox {
+  width: 20%;
+  margin-left: 10px;
+  margin-top: 20px;
+
+
+}
+
+mat-slide-toggle {
+  height: 50px;
+}
+
+/*#caloriesCheckbox {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
   height: 65%;
   margin-left: auto;
-}
+}*/
 
 .mat-mdc-checkbox .mdc-form-field {
   color: black;
@@ -75,18 +94,20 @@ app-home {
   align-items: center;
   padding: 2%;
 }
-.run-duration_slider{
+
+.run-duration_slider {
   display: flex;
   flex-direction: row;
   padding: 2%;
 }
+
 .hours_content, .minutes_content, .seconds_content {
   display: flex;
   flex-direction: column;
   margin-right: 20px;
 }
 
-.total_time{
+.total_time {
   font-weight: bold;
   font-size: 20px;
 }
@@ -95,6 +116,9 @@ app-home {
   display: flex;
   margin-right: auto;
   margin-left: auto;
+}
+.alert{
+  color: #F8D7DA;
 }
 
 html, body {

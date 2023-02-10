@@ -22,6 +22,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatSliderModule} from "@angular/material/slider";
 import {DatePipe} from "@angular/common";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 const routes:Routes = [
@@ -61,7 +62,8 @@ const routes:Routes = [
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSlideToggleModule
 
   ],
   providers: [DatePipe],

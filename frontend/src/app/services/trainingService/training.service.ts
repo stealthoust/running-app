@@ -26,6 +26,9 @@ export class TrainingService {
   {
     return this.httpClient.get(`${this.baseUrl}/${id}`);
   }
+  updateTraining(id: string, training: Training) {
+    return this.httpClient.put(`${this.baseUrl}/${id}`, training);
+  }
   deleteTraining(id: number) {
     return this.httpClient.delete(`${this.baseUrl}/${id}`, {observe: "response"});
   }

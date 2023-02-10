@@ -180,6 +180,7 @@ set time(value:string){
       this.toast.error("Total duration of run must be at least 1 minute");
       return;
     }
+
     let training = new Training();
     training.dateCreated = this.datePipe.transform(this.trainingForm.get('date')!.value, 'yyyy/MM/dd')!;
     training.kilometers = this.trainingForm.get('kilometers')?.value;
@@ -187,17 +188,37 @@ set time(value:string){
     training.time = this.time;
     training.description = this.trainingForm.get('description')?.value;
 
-    this.trainingService.addTraining(training).subscribe(
-      (res) => {
-        this.toast.success("Training added successfully");
-        this.router.navigateByUrl('/home');
+    if(this.isAddMode)
+    {
+      this.trainingService.addTraining(training).subscribe(
+        (res) => {
+          this.toast.success("Training added successfully");
+          this.router.navigateByUrl('/home');
 
-      },
-      (error) => {
-        this.toast.error("Faoled to add training");
-        console.log(error);
-      }
-    );
+        },
+        (error) => {
+          this.toast.error("Faoled to add training");
+          console.log(error);
+        }
+      );
+    }
+    else if(!this.isAddMode){
+      this.trainingService.updateTraining(this.id,training).subscribe(
+        (res) => {
+          this.toast.success("Training updated successfully");
+          this.router.navigateByUrl('/home');
+
+        },
+        (error) => {
+          this.toast.error("Faoled to update training");
+          console.log(error);
+        }
+      );
+    }
+    else{
+      this.toast.error("Something went wrong");
+    }
+
 
   }
 }

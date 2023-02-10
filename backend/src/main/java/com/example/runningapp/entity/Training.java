@@ -34,7 +34,6 @@ public class Training {
     private String description;
 
     @Column(name = "date_created")
-    @CreationTimestamp
     @JsonFormat(pattern = "yyyy/MM/dd")
     private Date dateCreated;
 

@@ -61,16 +61,19 @@ display(desc:string){
   }
 
   deleteTraining(id: number) {
-    this.trainingService.deleteTraining(id).subscribe(
-      (res) => {
+    if(confirm("Are you sure you want to delete this training?")){
+      this.trainingService.deleteTraining(id).subscribe(
+        (res) => {
 
-        if (res.status === 204) this.toast.success("Training deleted successfully");
-        this.getTrainings();
-      },
-      (error) => {
-        this.toast.error("Error deleting training");
-      }
-    );
+          if (res.status === 204) this.toast.success("Training deleted successfully");
+          this.getTrainings();
+        },
+        (error) => {
+          this.toast.error("Error deleting training");
+        }
+      );
+    }
+
   }
 
 }

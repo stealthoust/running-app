@@ -3,6 +3,9 @@ import {TrainingService} from "../../services/trainingService/training.service";
 import {Training} from "../../common/Training/training";
 import {PageEvent} from "@angular/material/paginator";
 import {ToastrService} from "ngx-toastr";
+import {MatDialog} from "@angular/material/dialog";
+import {DetailsComponent} from "../../dialogs/details/details/details.component";
+import {FormComponent} from "../form/form.component";
 
 
 
@@ -20,7 +23,7 @@ export class HomeComponent {
 
   name:string = "name";
   animal:string = "animal";
-  constructor(private trainingService: TrainingService, private toast: ToastrService) {
+  constructor(private trainingService: TrainingService, private toast: ToastrService,private matDialog:MatDialog) {
   }
 
   ngOnInit(): void {
@@ -74,6 +77,13 @@ display(desc:string){
       );
     }
 
+  }
+
+  openDialog(training:Training){
+this.matDialog.open(DetailsComponent, {
+    data: training
+  }
+);
   }
 
 }

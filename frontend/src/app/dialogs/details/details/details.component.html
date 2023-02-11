@@ -1,0 +1,41 @@
+<div class="form-container">
+  <h2>Your run details</h2>
+  <div class="details-row">
+  <div class="form-field">
+    <label>Date of run:</label>
+    <input type="text" disabled value="{{run.dateCreated}}">
+  </div>
+  <div class="form-field">
+    <label>Date of last update:</label>
+    <input type="text" disabled value="{{run.lastUpdated}}">
+  </div>
+  </div>
+  <div class="details-row">
+  <div class="form-field">
+    <label>Run duration:</label>
+    <input type="text" disabled value="{{run.time}}">
+  </div>
+  <div class="form-field">
+    <label>Kilometers:</label>
+    <input type="text" disabled value="{{run.kilometers}}">
+  </div>
+  </div>
+  <div class="details-row">
+  <div class="form-field">
+    <label>Average speed:</label>
+    <input type="text" disabled value="{{run.avgSpeed}}">
+  </div>
+  <div class="form-field">
+    <label>Calories burned:</label>
+    <input type="text" disabled value="{{run.calories}}">
+  </div>
+  </div>
+  <div class="form-field">
+    <label>Description:</label>
+    <textarea disabled>{{run.description}}</textarea>
+  </div>
+
+    <button (click)="onClose()" mat-flat-button color="primary">Close</button>
+
+
+</div>

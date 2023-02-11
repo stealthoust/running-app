@@ -23,6 +23,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatSliderModule} from "@angular/material/slider";
 import {DatePipe} from "@angular/common";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { DetailsComponent } from './dialogs/details/details/details.component';
 
 
 const routes:Routes = [
@@ -38,7 +39,8 @@ const routes:Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    FormComponent
+    FormComponent,
+    DetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

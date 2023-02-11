@@ -24,6 +24,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {DatePipe} from "@angular/common";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { DetailsComponent } from './dialogs/details/details/details.component';
+import { DeleteComponent } from './dialogs/delete/delete/delete.component';
 
 
 const routes:Routes = [
@@ -40,7 +41,8 @@ const routes:Routes = [
     AppComponent,
     HomeComponent,
     FormComponent,
-    DetailsComponent
+    DetailsComponent,
+    DeleteComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

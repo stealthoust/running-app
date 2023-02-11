@@ -1,6 +1,10 @@
+.mat-toolbar{
+  background: #4758B8;
+}
 mat-toolbar a {
   text-decoration: none;
-  color: white;
+  color: black;
+
 }
 
 .main-content {
@@ -24,7 +28,7 @@ app-home {
 }
 
 .container {
-  background-color: #737079;
+  background-color: whitesmoke;
   min-width: 450px;
   max-height: 800px;
   overflow: auto;
@@ -110,7 +114,7 @@ mat-slide-toggle {
   width: 50%;
 }
 .alert{
-  color: #F8D7DA;
+  color: red;
 }
 
 html, body {
@@ -121,3 +125,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

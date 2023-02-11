@@ -6,6 +6,7 @@ import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsComponent} from "../../dialogs/details/details/details.component";
 import {FormComponent} from "../form/form.component";
+import {DeleteComponent} from "../../dialogs/delete/delete/delete.component";
 
 
 
@@ -64,10 +65,8 @@ display(desc:string){
   }
 
   deleteTraining(id: number) {
-    if(confirm("Are you sure you want to delete this training?")){
       this.trainingService.deleteTraining(id).subscribe(
         (res) => {
-
           if (res.status === 204) this.toast.success("Training deleted successfully");
           this.getTrainings();
         },
@@ -75,11 +74,16 @@ display(desc:string){
           this.toast.error("Error deleting training");
         }
       );
-    }
+
 
   }
-
-  openDialog(training:Training){
+openDeleteDialog(id:number,data:string){
+    const dialogRef=this.matDialog.open(DeleteComponent,{data});
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result==='yes') this.deleteTraining(id);
+    })
+}
+  openDetailsDialog(training:Training){
 this.matDialog.open(DetailsComponent, {
     data: training
   }

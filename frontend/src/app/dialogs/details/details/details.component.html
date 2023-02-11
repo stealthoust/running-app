@@ -3,11 +3,11 @@
   <div class="details-row">
   <div class="form-field">
     <label>Date of run:</label>
-    <input type="text" disabled value="{{run.dateCreated}}">
+    <input type="text" disabled value="{{run.dateCreated |date}}">
   </div>
   <div class="form-field">
     <label>Date of last update:</label>
-    <input type="text" disabled value="{{run.lastUpdated}}">
+    <input type="text" disabled value="{{run.lastUpdated |date}}">
   </div>
   </div>
   <div class="details-row">
@@ -23,7 +23,7 @@
   <div class="details-row">
   <div class="form-field">
     <label>Average speed:</label>
-    <input type="text" disabled value="{{run.avgSpeed}}">
+    <input type="text" disabled value="{{run.avgSpeed}} km/h">
   </div>
   <div class="form-field">
     <label>Calories burned:</label>

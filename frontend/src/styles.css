@@ -1,17 +1,25 @@
-.mat-toolbar{
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap');
+
+html * {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-toolbar {
   background: #4758B8;
 }
+
 mat-toolbar a {
   text-decoration: none;
-  color: black;
-
-}
-
-.main-content {
-  min-height: 300px;
-  max-height: 750px;
-  overflow: auto;
-  width: 80%;
+  color: white;
 }
 
 app-home {
@@ -21,12 +29,31 @@ app-home {
   align-items: center;
 }
 
+.main-content {
+  min-height: 300px;
+  max-height: 750px;
+  overflow: auto;
+  width: 80%;
+}
+
+.main-content h1 {
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+}
+
 .form-content {
   display: flex;
   justify-content: center;
-
 }
-
+.form-content h1{
+  font-size: 36px;
+}
+.form-content h1,
+.form-content h2{
+  font-family: 'Cormorant Garamond', serif ;
+}
 .container {
   background-color: whitesmoke;
   min-width: 450px;
@@ -55,14 +82,10 @@ app-home {
   flex-direction: row;
 }
 
+
 .calories-input {
   width: 90%;
 }
-
-#mat-mdc-slide-toggle-label {
-  color: black;
-}
-
 
 .calories-checkbox {
   width: 20%;
@@ -72,14 +95,6 @@ app-home {
 
 }
 
-mat-slide-toggle {
-  height: 50px;
-}
-
-
-.mat-mdc-checkbox .mdc-form-field {
-  color: black;
-}
 
 .run-duration_content {
   display: flex;
@@ -94,7 +109,7 @@ mat-slide-toggle {
   padding: 2%;
 }
 
-.hours_content, .minutes_content, .seconds_content {
+.time_content {
   display: flex;
   flex-direction: column;
   margin-right: 20px;
@@ -109,22 +124,24 @@ mat-slide-toggle {
   display: flex;
   flex-direction: row;
 }
-.form-button button{
+
+.form-button button {
   margin: 10px;
   width: 50%;
 }
-.alert{
+
+.alert {
   color: red;
 }
 
-html, body {
-  height: 100%;
+/*#mat-mdc-slide-toggle-label {
+  color: black;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+mat-slide-toggle {
+  height: 50px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-mdc-checkbox .mdc-form-field {
+  color: black;
+}*/

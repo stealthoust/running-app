@@ -90,4 +90,8 @@ this.matDialog.open(DetailsComponent, {
 );
   }
 
+  openUpdateDialog(){
+    this.matDialog.open(FormComponent);
+  }
+
 }

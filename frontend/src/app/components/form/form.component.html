@@ -56,19 +56,19 @@
       <div class="run-duration_content">
         <h2>Run duration</h2>
         <div class="run-duration_slider">
-          <div class="hours_content">
+          <div class="time_content">
             <label>Hours</label>
             <mat-slider min="0" max="40" step="1">
               <input #hours formControlName="hours" (valueChange)="setHours(hours.value)" matSliderThumb>
             </mat-slider>
           </div>
-          <div class="minutes_content">
+          <div class="time_content">
             <label>Minutes</label>
             <mat-slider min="0" max="59" step="1">
               <input #minutes formControlName="minutes" (valueChange)="setMinutes(minutes.value)" matSliderThumb>
             </mat-slider>
           </div>
-          <div class="seconds_content">
+          <div class="time_content">
             <label>Seconds</label>
             <mat-slider min="0" max="59" step="1">
               <input #seconds formControlName="seconds" (valueChange)="setSeconds(seconds.value)" matSliderThumb>
@@ -88,7 +88,7 @@
         Length of description should be less than 255 characters
       </div>
       <div class="form-button">
-      <button mat-flat-button color="primary" routerLink="">Back</button>
+      <button type="button" mat-flat-button color="primary" routerLink="">Back</button>
       <button mat-flat-button color="primary" >{{isAddMode? 'Add training':'Update training'}}</button>
       </div>
     </form>

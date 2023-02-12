@@ -20,7 +20,7 @@ export class DetailsComponent {
     this.matDialogRef.close();
   }
 
-  onClose(){
+  onClose() {
     this.matDialogRef.close();
   }
 }

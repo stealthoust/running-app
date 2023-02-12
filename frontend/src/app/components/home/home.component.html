@@ -1,67 +1,68 @@
 <div class="main-content">
-<h1>Your trainings</h1>
+  <h1>Your trainings</h1>
   <button routerLink="/form" mat-raised-button color="primary">Add new training</button>
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="trainingsList" >
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="trainingsList">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="dateCreated">
-      <th mat-header-cell *matHeaderCellDef> Date of run </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateCreated | date}} </td>
-    </ng-container>
-    <ng-container matColumnDef="lastUpdated">
-      <th mat-header-cell *matHeaderCellDef> Date of last update </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastUpdated |date}} </td>
-    </ng-container>
-    <ng-container matColumnDef="runTime">
-      <th mat-header-cell *matHeaderCellDef> Run duration </th>
-      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
-    </ng-container>
-    <ng-container matColumnDef="kilometers">
-      <th mat-header-cell *matHeaderCellDef> Kilometers </th>
-      <td mat-cell *matCellDef="let element"> {{element.kilometers}} </td>
-    </ng-container>
-    <ng-container matColumnDef="avgSpeed">
-      <th mat-header-cell *matHeaderCellDef> Average speed km/h </th>
-      <td mat-cell *matCellDef="let element"> {{element.avgSpeed}} </td>
-    </ng-container>
-    <ng-container matColumnDef="calories">
-      <th mat-header-cell  *matHeaderCellDef> Calories burned </th>
-      <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th  mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button="primary" (click)="openDetailsDialog(element)" aria-label="Update training">
-          <mat-icon>info</mat-icon>
-        </button>
-        <button mat-icon-button="primary" routerLink="/form/{{element.id}}" aria-label="Update training">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button="primary" (click)="openDeleteDialog(element.id,element.dateCreated)" aria-label="Delete training">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dateCreated">
+        <th mat-header-cell *matHeaderCellDef> Date of run</th>
+        <td mat-cell *matCellDef="let element"> {{element.dateCreated | date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="lastUpdated">
+        <th mat-header-cell *matHeaderCellDef> Date of last update</th>
+        <td mat-cell *matCellDef="let element"> {{element.lastUpdated |date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="runTime">
+        <th mat-header-cell *matHeaderCellDef> Run duration</th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+      </ng-container>
+      <ng-container matColumnDef="kilometers">
+        <th mat-header-cell *matHeaderCellDef> Kilometers</th>
+        <td mat-cell *matCellDef="let element"> {{element.kilometers}} </td>
+      </ng-container>
+      <ng-container matColumnDef="avgSpeed">
+        <th mat-header-cell *matHeaderCellDef> Average speed km/h</th>
+        <td mat-cell *matCellDef="let element"> {{element.avgSpeed}} </td>
+      </ng-container>
+      <ng-container matColumnDef="calories">
+        <th mat-header-cell *matHeaderCellDef> Calories burned</th>
+        <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button="primary" (click)="openDetailsDialog(element)" aria-label="Update training">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-icon-button="primary" routerLink="/form/{{element.id}}" aria-label="Update training">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button="primary" (click)="openDeleteDialog(element.id,element.dateCreated)"
+                  aria-label="Delete training">
+            <mat-icon>delete</mat-icon>
+          </button>
 
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"   ></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
-  <mat-paginator id="paginator"
-                 (page)="OnPageChange($event)"
-                 [length]="totalElements"
-                 [pageSize]="pageSize"
-                 [pageSizeOptions]="[10, 20, 30]"
-                 aria-label="Select page"
-                 [showFirstLastButtons]=true>
+    <mat-paginator id="paginator"
+                   (page)="OnPageChange($event)"
+                   [length]="totalElements"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[10, 20, 30]"
+                   aria-label="Select page"
+                   [showFirstLastButtons]=true>
 
-  </mat-paginator>
-</div>
+    </mat-paginator>
+  </div>
 </div>
 

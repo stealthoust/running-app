@@ -48,48 +48,38 @@ export class FormComponent implements OnInit {
       seconds: new FormControl('0', [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)]),
     });
+
     if (!this.isAddMode) {
-this.trainingService.getById(this.id).subscribe((res)=>{
-  this.training=res;
-const time= this.training.time?.split(':');
-  this.trainingForm.setValue({
-    date: new Date(Date.parse(this.training.dateCreated!)) ,
-    kilometers: this.training.kilometers,
-    calories: this.training.calories,
-    hours: time![0],
-    minutes: time![1],
-    seconds: time![2],
-    description: this.training.description,
-  });
-  this.hoursValue=time![0];
-  this.minutesValue=time![1];
-  this.secondsValue=time![2];
+      this.trainingService.getTrainingById(this.id).subscribe((res) => {
+        this.training = res;
+        const time = this.training.time?.split(':');
 
-},(error)=>{
-  this.toast.error("Id not found. you will be taken to the creation panel");
-  this.router.navigateByUrl('/form');
-})
+        this.trainingForm.setValue({
+          date: new Date(Date.parse(this.training.dateCreated!)),
+          kilometers: this.training.kilometers,
+          calories: this.training.calories,
+          hours: time![0],
+          minutes: time![1],
+          seconds: time![2],
+          description: this.training.description,
+        });
 
+        this.hoursValue = time![0];
+        this.minutesValue = time![1];
+        this.secondsValue = time![2];
 
+      }, (error) => {
+        this.toast.error("Id not found. you will be taken to the creation panel");
+        this.router.navigateByUrl('/form');
+      })
 
     }
-  }
-
-  isTotalDurationShort() {
-
-
-    let totalDuration = parseInt(this.hoursValue) * 3600 + parseInt(this.minutesValue) * 60 + parseInt(this.secondsValue);
-
-    return totalDuration < 60;
-
-
   }
 
   checkboxChangeState() {
     if (!this.checkboxState) {
       this.trainingForm.get('calories')?.disable();
       this.checkboxState = true;
-
       this.calculateCalories();
     } else {
       this.trainingForm.get('calories')?.enable();
@@ -104,6 +94,59 @@ const time= this.training.time?.split(':');
       const calories = (75 * kilometers);
       this.trainingForm.patchValue({calories: Math.round(calories)});
     }
+
+  }
+
+  isTotalDurationShort() {
+    let totalDuration = parseInt(this.hoursValue) * 3600 + parseInt(this.minutesValue) * 60 + parseInt(this.secondsValue);
+    return totalDuration < 60;
+  }
+
+  onSubmit() {
+    if (this.trainingForm.invalid) {
+      this.trainingForm.markAllAsTouched();
+      return;
+    }
+    if (this.isTotalDurationShort()) {
+      this.toast.error("Total duration of run must be at least 1 minute");
+      return;
+    }
+
+    let training = new Training();
+    training.dateCreated = this.datePipe.transform(this.trainingForm.get('date')!.value, 'yyyy/MM/dd')!;
+    training.kilometers = this.trainingForm.get('kilometers')?.value;
+    training.calories = this.trainingForm.get('calories')?.value;
+    training.time = this.time;
+    training.description = this.trainingForm.get('description')?.value;
+
+    if (this.isAddMode) {
+      this.trainingService.addTraining(training).subscribe(
+        (res) => {
+          this.toast.success("Training added successfully");
+          this.router.navigateByUrl('/home');
+
+        },
+        (error) => {
+          this.toast.error("Faoled to add training");
+          console.log(error);
+        }
+      );
+    } else if (!this.isAddMode) {
+      this.trainingService.updateTraining(this.id, training).subscribe(
+        (res) => {
+          this.toast.success("Training updated successfully");
+          this.router.navigateByUrl('/home');
+
+        },
+        (error) => {
+          this.toast.error("Faoled to update training");
+          console.log(error);
+        }
+      );
+    } else {
+      this.toast.error("Something went wrong");
+    }
+
 
   }
 
@@ -130,9 +173,11 @@ const time= this.training.time?.split(':');
   get seconds() {
     return this.trainingForm.get('seconds');
   }
-set time(value:string){
 
-}
+  set time(value: string) {
+
+  }
+
   get time(): string {
     return `${this.hoursValue}:${this.minutesValue}:${this.secondsValue}`;
   }
@@ -143,10 +188,6 @@ set time(value:string){
 
   get duration() {
     return this.trainingForm.get('duration');
-  }
-
-  display(value: any) {
-    console.log(value);
   }
 
   setHours(number: any) {
@@ -161,64 +202,10 @@ set time(value:string){
     this.calculateCalories();
   }
 
+
   setSeconds(number: any) {
     if (number.length == 1) this.secondsValue = "0" + number;
     else this.secondsValue = number;
     this.calculateCalories();
-  }
-
-  onInputChange(value: any) {
-    console.log(value);
-  }
-
-  onSubmit() {
-    if (this.trainingForm.invalid) {
-      this.trainingForm.markAllAsTouched();
-      return;
-    }
-    if (this.isTotalDurationShort()) {
-      this.toast.error("Total duration of run must be at least 1 minute");
-      return;
-    }
-
-    let training = new Training();
-    training.dateCreated = this.datePipe.transform(this.trainingForm.get('date')!.value, 'yyyy/MM/dd')!;
-    training.kilometers = this.trainingForm.get('kilometers')?.value;
-    training.calories = this.trainingForm.get('calories')?.value;
-    training.time = this.time;
-    training.description = this.trainingForm.get('description')?.value;
-
-    if(this.isAddMode)
-    {
-      this.trainingService.addTraining(training).subscribe(
-        (res) => {
-          this.toast.success("Training added successfully");
-          this.router.navigateByUrl('/home');
-
-        },
-        (error) => {
-          this.toast.error("Faoled to add training");
-          console.log(error);
-        }
-      );
-    }
-    else if(!this.isAddMode){
-      this.trainingService.updateTraining(this.id,training).subscribe(
-        (res) => {
-          this.toast.success("Training updated successfully");
-          this.router.navigateByUrl('/home');
-
-        },
-        (error) => {
-          this.toast.error("Faoled to update training");
-          console.log(error);
-        }
-      );
-    }
-    else{
-      this.toast.error("Something went wrong");
-    }
-
-
   }
 }

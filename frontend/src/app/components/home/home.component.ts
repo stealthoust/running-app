@@ -9,7 +9,6 @@ import {FormComponent} from "../form/form.component";
 import {DeleteComponent} from "../../dialogs/delete/delete/delete.component";
 
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,9 +21,10 @@ export class HomeComponent {
   pageSize: number = 10;
   totalElements: number = 0;
 
-  name:string = "name";
-  animal:string = "animal";
-  constructor(private trainingService: TrainingService, private toast: ToastrService,private matDialog:MatDialog) {
+
+  constructor(private trainingService: TrainingService,
+              private toast: ToastrService,
+              private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -40,6 +40,20 @@ export class HomeComponent {
 
   }
 
+  deleteTraining(id: number) {
+    this.trainingService.deleteTraining(id).subscribe(
+      (res) => {
+        if (res.status === 204) this.toast.success("Training deleted successfully");
+        this.getTrainings();
+      },
+      (error) => {
+        this.toast.error("Error deleting training");
+      }
+    );
+
+
+  }
+
   calculateAvgSpeed(trainings: Training[]) {
     trainings.forEach((training: Training) => {
       training.avgSpeed = this.trainingService.calculateAvgSpeed(training.time!, training.kilometers!);
@@ -48,15 +62,28 @@ export class HomeComponent {
     });
   }
 
+
   OnPageChange(e: PageEvent) {
     this.pageSize = e.pageSize;
     this.totalElements = e.length;
     this.pageNumber = e.pageIndex + 1;
     this.getTrainings();
   }
-display(desc:string){
-  this.toast.success("Clicked "+desc);
-}
+
+  openDeleteDialog(id: number, data: string) {
+    const dialogRef = this.matDialog.open(DeleteComponent, {data});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') this.deleteTraining(id);
+    })
+  }
+
+  openDetailsDialog(training: Training) {
+    this.matDialog.open(DetailsComponent, {
+        data: training
+      }
+    );
+  }
+
   getNestedData(data: any) {
     this.trainingsList = data._embedded.trainings;
     this.pageNumber = data.page.number + 1;
@@ -64,34 +91,5 @@ display(desc:string){
     this.totalElements = data.page.totalElements;
   }
 
-  deleteTraining(id: number) {
-      this.trainingService.deleteTraining(id).subscribe(
-        (res) => {
-          if (res.status === 204) this.toast.success("Training deleted successfully");
-          this.getTrainings();
-        },
-        (error) => {
-          this.toast.error("Error deleting training");
-        }
-      );
-
-
-  }
-openDeleteDialog(id:number,data:string){
-    const dialogRef=this.matDialog.open(DeleteComponent,{data});
-    dialogRef.afterClosed().subscribe(result=>{
-      if(result==='yes') this.deleteTraining(id);
-    })
-}
-  openDetailsDialog(training:Training){
-this.matDialog.open(DetailsComponent, {
-    data: training
-  }
-);
-  }
-
-  openUpdateDialog(){
-    this.matDialog.open(FormComponent);
-  }
 
 }

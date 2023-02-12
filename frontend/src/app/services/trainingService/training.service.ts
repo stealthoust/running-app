@@ -22,20 +22,21 @@ export class TrainingService {
     return this.httpClient.get<getTrainingsResponse>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
 
-  getById(id:string)
-  {
+  getTrainingById(id: string) {
     return this.httpClient.get(`${this.baseUrl}/${id}`);
-  }
-  updateTraining(id: string, training: Training) {
-    return this.httpClient.put(`${this.baseUrl}/${id}`, training);
-  }
-  deleteTraining(id: number) {
-    return this.httpClient.delete(`${this.baseUrl}/${id}`, {observe: "response"});
   }
 
   addTraining(training: Training) {
     return this.httpClient.post<Training>(this.baseUrl, training);
 
+  }
+
+  updateTraining(id: string, training: Training) {
+    return this.httpClient.put(`${this.baseUrl}/${id}`, training);
+  }
+
+  deleteTraining(id: number) {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`, {observe: "response"});
   }
 
   calculateAvgSpeed(time: string, distance: number): number {
